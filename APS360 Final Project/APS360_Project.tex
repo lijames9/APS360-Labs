@@ -1,0 +1,96 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{iclr2022_conference,times}
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+% Optional math commands from https://github.com/goodfeli/dlbook_notation.
+\input{math_commands.tex}
+
+%######## APS360: Uncomment your submission name
+%\newcommand{\apsname}{Project Proposal}
+%\newcommand{\apsname}{Progress Report}
+\newcommand{\apsname}{Final Report}
+
+%######## APS360: Put your Group Number here
+\newcommand{\gpnumber}{21}
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{graphicx}
+
+%######## APS360: Put your project Title here
+\title{Tweet Sentiment Classification using Convolutional Neural Networks\vspace{-0.75em}}
+
+
+%######## APS360: Put your names, student IDs and Emails here
+\author{James Li  \\
+Student\# 1007974248\\
+\texttt{jamesw.li@mail.utoronto.ca} \\
+\And
+Pierre Ishak \\
+Student\# 1007897457 \\
+\texttt{pierre.ishak@mail.utoronto.ca} \\
+\AND
+Tanmay Patel  \\
+Student\# 1008279168 \\
+\texttt{tanmayn.patel@mail.utoronto.ca} \\
+\And
+Nicholas Lupu-Muslea \\
+Student\# 1007896154 \\
+\texttt{n.lupumuslea@mail.utoronto.ca} \\
+\AND
+}
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+\iclrfinalcopy 
+%######## APS360: Document starts here
+\begin{document}
+\maketitle
+\vspace{-4.5em}
+Link to GitHub: \url{https://github.com/piroo8/Aps360}
+\vspace{-1em}
+\input{intro} %James
+%Illustrations %James
+\input{background} %James
+%\input{projectdesc}
+\input{Data_Processing} %Tanmay
+\input{Architecture} %Pierre
+\input{Baseline} % James
+\input{qual_and_quant} % Nick
+\input{Testing} %Pierre
+\input{Discussion} %Pierre
+\input{ethics} % Nick
+\input{projectdifficulty} %Tanmay
+\label{last_page}
+\vspace{0.2em}
+\hline
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[height=0.88\textheight]{Figs/Blue Technological Artificial Intelligence Infographic .jpg}
+    \caption{Illustration}
+    \label{fig:illustration}
+\end{figure}
+
+\vfill\pagebreak
+\appendix
+\begin{thebibliography}{50}
+
+\bibitem{mckinsey} Seiler, D.; “How COVID-19 has pushed companies over the technology tipping point-and transformed business forever,” McKinsey \& Company, \url{https://www.mckinsey.com/capabilities/strategy-and-corporate-finance/our-insights/how-covid-19-has-pushed-companies-over-the-technology-tipping-point-and-transformed-business-forever} (accessed Aug. 10, 2023). 
+\bibitem{screentime} A. Pandya and P. Lodha, “Social connectedness, excessive screen time during COVID-19 and mental health: A review of current evidence,” Frontiers, \url{https://www.frontiersin.org/articles/10.3389/fhumd.2021.684137/full} (accessed Aug. 10, 2023).
+\bibitem{background1} Yadav, A., Vishwakarma, D.K. Sentiment analysis using deep learning architectures: a review. Artif Intell Rev 53, 4335–4385 (2020). \url{https://doi.org/10.1007/s10462-019-09794-5}
+\bibitem{background2} G, Vinodhini, Chandrasekaran, Dr. (2012). Sentiment Analysis and Opinion Mining: A Survey. Int J Adv Res Comput Sci Technol. 2. \url{https://www.researchgate.net/publication/265163299_Sentiment_Analysis_and_Opinion_Mining_A_Survey}
+\bibitem{background3} László Nemes \& Attila Kiss (2021) Social media sentiment analysis based on COVID-19, Journal of Information and Telecommunication, 5:1, 1-15 \url{https://doi.org/10.1080/24751839.2020.1790793}
+
+\end{thebibliography}
+
+
+
+\end{document}
