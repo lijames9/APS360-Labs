@@ -1,0 +1,34 @@
+\section{Primary Model}
+
+\subsection{Architecture}
+To be able to perform the sentiment analysis, research showed that a recurrent neural network would be the most effective. An approximate illustration of the structure of the network can be found below:
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figs/architecture.png}
+    \caption{\textbf{System Architecture Illustration}}
+\end{figure}
+
+The input size of 166 represents the length of the tweets being fed into the network to train. Through processing, each tweet was converted to a numerical representation based off the 35895-word dictionary created according to word frequency. The tweets were homogenized to the same length by padding each entry with zeros, arriving at a training set that was a 166 by 73996 tensor holding each training tweet. The three outputs correspond to the three potential sentiments of a tweet, positive, negative, and neutral, which was a batching of neutral and irrelevant sentiment tweets. For determining accuracy, the sentiment labels on the inputs were also included in the training data loader. The rest of the system architecture for the first trial is made up of the following parts
+
+1.	A long-short term memory layer constructed using the Pytorch LSTM function.
+
+2.	A linear hidden layer of size 64, between the LSTM and the output layer
+
+\subsection{Training}
+Some early simple training was done with the model to determine how effective it would be. Input data would be reshaped from 3D to 2D, gradients get cleared, a forward pass is performed, output gets reshaped back and compared to the label. Loss and test accuracy on batches of 32 samples was performed, with results shown at the end of the subsection.
+
+For an initial trial of 10 epochs, a loss of about 0.6 and an accuracy of about 82.5 percent was deemed sufficient. This is significantly better than the baseline created already, which shows that we are well along the process of creating our model, but it needs to be tuned greatly to prevent it from plateauing at that point. A small quirk of the results is that the first batch, despite the data set being shuffled, was very weighted towards neutral/irrelevant tweets, comprising over half of the first batch. This may have initially weighted the model towards predicting that sentiment often, and tuning must be done to ensure that this is not the case. 
+
+The largest challenge faced in creating the primary model came from understanding how to fit the data into the architecture. The dimensions did not match at first, there were errors with passing it into the hidden layer, and the output and label datatypes did not match originally, which was an error that took a while to catch until they were both typecast to the same thing for comparison. However, now that a simple architecture has been complete, modifying its hyperparameters to improve quantitative results should not be a large hurdle in completion of this assignment. 
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figs/PrimaryAcc.png}
+    \caption{\textbf{Accuracy from the first trial}}
+\end{figure}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figs/PrimaryLoss.png}
+    \caption{\textbf{Loss from the first trial}}
+\end{figure}
+

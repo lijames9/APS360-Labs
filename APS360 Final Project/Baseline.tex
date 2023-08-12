@@ -1,0 +1,27 @@
+\section{Baseline Model}
+
+%In this project, we implemented a baseline model to establish a benchmark for evaluating the performance of our primary neural network model. The baseline model we chose was the LightGBM classifier, which was a gradient boosting machine learning algorithm known for its efficiency and accuracy in handling large datasets, as well as through testing many classifiers through PyCaret.
+PyCaret, a machine learning library, was used to implement a baseline model for sentiment analysis on the tweet dataset, simplifying the process by automating various tasks, including data preprocessing, feature engineering, hyperparameter tuning, and model comparison. With PyCaret, we tested multiple classification algorithms on the tweet dataset to identify the best-performing model by accuracy. The LightGBM classifier emerged as the top performer based on accuracy. We then tuned its hyperparameters using PyCaret's grid-search capabilities. The resulting model formed the baseline, which achieved an accuracy of 40\%.
+\vspace{-0.75em}
+\subsection{Baseline Model on its Own:}
+\vspace{-1em}
+%To start, we preprocessed the dataset by reading a CSV file containing tweet data using the pandas library. We then converted the 'tweet' column to a string data type and removed any non-string entries from the dataset. This preprocessing step ensured that the data was in a suitable format for further analysis.
+
+%Next, we split the data into features (X) and the target variable (y), representing the tweet text and sentiment, respectively. The dataset was then divided into training, validation, and testing sets using the train-test-split function from \texttt{scikit-learn}. This step is crucial for evaluating the performance of the models on unseen data.
+
+Before training the LightGBM classifier, we employed the TF-IDF vectorizer from \texttt{scikit-learn} to convert the tweet text into numerical features. This transformation allowed the machine learning model to work with text data effectively.
+
+For the baseline model, we performed grid search using the \texttt{GridSearchCV} function to tune the hyperparameters of the LightGBM classifier. The parameter grid included options for the number of leaves, maximum depth, and number of estimators.
+%Tuning the hyperparameters of LightGBM allowed us to find the right balance between model complexity and performance.
+After completing the grid search, we obtained the best model based on the accuracy score, which achieved a classification accuracy of 0.6905, or 69.05\%.
+%We then made predictions on the test set using the best model and calculated the accuracy to assess its performance. Additionally, we compared the accuracy of the best model after tuning with the accuracy of the initial model before tuning. This comparison helped evaluate the impact of hyperparameter tuning on model performance.
+The classification report (see Figure \ref{fig:classreport}) provides a more detailed assessment of the model's performance. The report includes precision, recall, and F1-score metrics for each sentiment class, as well as overall macro-averaged and weighted-averaged metrics.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=.5\linewidth]{Figs/Stats_baseline.png}
+    \caption{\textbf{Classification Report For Baseline Model}; Accuracy (Best Model): 0.6905; Best Parameters: \{\texttt{max\_depth}: 20, \texttt{n\_estimators}: 200, \texttt{num\_leaves}: 30\}.}
+    \label{fig:classreport}
+\end{figure}
+
+Challenges faced during the construction of the baseline model are discussed in section 8: Project Difficulty, of this document.

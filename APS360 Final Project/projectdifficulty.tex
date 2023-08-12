@@ -1,0 +1,49 @@
+\section{Project Difficulty and Performance Evaluation}
+
+%In this section, we assess the difficulty of the project and the performance of our model in relation to the complexity of the problem. We explain why the problem might be challenging and how our model's performance aligns with the level of difficulty.
+
+\subsection{Project Difficulty Assessment}
+\vspace{-1em}
+In this section, we assess the difficulty of the project and the performance of our model in relation to the complexity of the problem.
+Our project involved tackling a large amount of data processing and determining the correct build of the model. Despite the initial appearance of a simple language classifying model, we identified several intricacies that contributed to the overall complexity of the problem that had been mellowed down for our first interaction with it, during the lecture.
+\begin{enumerate}
+    \item \textbf{Pre-processing Data:} Dealing with edge cases in the raw data. There were multiple instances that we realised required special consideration when we analyzed our raw data. 
+    \item \textbf{Baseline Model:} Vectorization and its importance in ML and hyper-tuning.
+    \item \textbf{Defining a Model:} Striking the correct balance between complexity and simplicity for the model to learn and perform
+\end{enumerate}
+
+Our problem's difficulty exceeded our expectations due to the interplay of these factors.
+\vspace{-1em}
+\subsubsection{Pre-processing Data}
+\vspace{-0.5em}
+As mentioned earlier it proved to be a challenge for us to construct a data pipeline that accounted for all data which also took into consideration multiple edge cases. As languages are ever changing with the rise of slang, acronyms, contractions and all together evolution of the language, there were an extensive amount of edge cases. Some encounters are elaborated below.
+We incorporated a function that expands contraction and slang, but as we were using a dictionary that we collected and constructed it only considered the most common cases to our knowledge. 
+
+Another challenge we faced was with punctuation. It is no doubt that punctuation can convey sentimental values [example: 1) Let's eat, grandma! 2) Let's eat grandma!]. Therefore we initially had decided to keep the punctuation. However, later as we implemented the pipeline we realised that firstly, it blew up tokenization and secondly, the padded sequence lengths grew too large. Therefore, for the two reasons above we decided to remove all punctuation before we performed tokenization.
+\vspace{-1em}
+\subsubsection{Baseline Model}
+\vspace{-0.5em}
+Initially, comprehending how to transform text data into numerical features was a complex task (vectorization of data for ML implementations). However, PyCaret’s built-in capabilities simplified this process by automatically handling the vectorization of the tweet data. PyCaret’s preprocessing steps, including the TF-IDF vectorizer, seamlessly converted the tweet text into numerical representations, allowing the machine learning models to process the data effectively.
+
+An additional challenge we faced was selecting the appropriate hyper-parameters for the Light-GBM classifier. To tackle this challenge, we employed grid search using PyCaret’s tuning capabilities. By understanding the impact of these hyper-parameters on the model’s behavior, we were
+able to fine-tune the LightGBM classifier and achieve optimal results for our baseline model.
+\vspace{-1em}
+\subsubsection{Defining a Model}
+\vspace{-0.5em}
+As mentioned in class that Sentiment Analysis is no easy feat, we came to realise this whilst debugging our different models for the project. A difficulty we faced was evaluating why our initial models maxed out performance at 60\%. After quite some debugging we came to realise the trade-off between a simple and a complex model. Our initial vanilla RNN, LSTM, and GRU maxed out performance at approximately 30-35\% because they were not able to learn as sentiment analysis is a difficult task. Our Bidirectional LSTM, GRU and quadruple stacked GRU with two fully connected layers were either complex or too complex that they were only good a predicting one of the classes definitely. It proved to be difficult for us to strike a balance between our model being too simple where to guessed labels for each epoch or was really good at determining one type of sentiment and predicting that with a high accuracy.
+\vspace{-1em}
+\subsection{Model Performance Evaluation}
+\vspace{-1em}
+We strove to create a model that not only met the expectations of the project's difficulty but also demonstrated a level of performance that exceeded the anticipated challenges. Our model showcased a performance that aligned with the intricacies of the problem, confirming its capability to navigate the complexities we outlined.
+
+The model's performance as seen by the matrix in section 6 during testing phases, substantiates its effectiveness in addressing the problem's intricacies. Although certain aspects of our model's performance like predicting the positive and neutral sentiments, were justifiably rooted in the unique complexity of the problem. These limitations are temporary and as discussed in our future directions section we strive to cure them to achieve better performances of our model.
+\vspace{-1em}
+\subsection{Learning Beyond Expectations}
+\vspace{-1em}
+Our team's efforts extended beyond the teaching of the labs as we explored different implementations and libraries. By delving into the intricacies of the problem and implementing different models to learn from, we enriched our understanding of Sentiment Analysis models through first hand experience. Implementing various models heightened our understanding fop caveats of each as well as exposed us to errors that we can now rectify and pin point to the exact part of the code that could be malfunctioning. There was a lot of invaluable experience gained by pushing beyond our limits and experimenting in the field that we will carry forward in our journeys.
+\vspace{-1em}
+\subsection{Conclusion}
+\vspace{-1em}
+In conclusion, our project's difficulty was undermined at first but after implementing and getting our hand dirty we began to realise the mammoth difficulty Sentiment Analysis poses. 
+
+Our model's performance, aligning with the identified challenges, although, it could be significantly improved. Through this project, we demonstrated our capacity to not only meet expectations but also show perseverance in tough times by delving deep into the complexities and emerging with a commendable solution.

@@ -1,0 +1,68 @@
+\section{Data Processing}
+
+The first data set that we used was a twitter data set from Kaggle. The reasoning for choosing this data set was the sheer magnitude of the data containing over 60,000 tweets. In addition to its magnitude, it also incorporated a breadth of tweets i.e. the tweets were from various sources such as product reviews, movie reviews, gaming chats, etc.\href{https://www.kaggle.com/datasets/jp797498e/twitter-entity-sentiment-analysis}{\texttt{Link to first data set (train)}} 
+
+For the second data set, we also chose a dataset from Kaggle instead of collecting our own data since the task at hand was complex and a large dataset was needed. Although, this time instead of choosing a generic data set we decided to use a company directed data set to mimic real world scenario. We considered ourselves to be a third party helping a company filter out tweets into different categories. Hence, our choice of the Dell oriented data set as the test data. \href{https://www.kaggle.com/datasets/ankitkumar2635/sentiment-and-emotions-of-tweets}{\texttt{Link to second data set (test)}}
+\vspace{-1em}
+\subsection{Data Sourcing, Cleaning \& Formatting:}
+\vspace{-1em}
+The data for this project was sourced from Kaggle (see above). While the dataset had received a high quality and usability rating by other users on the website, our inspection revealed certain aspects that required cleaning and reorganization to be fed into our model for optimal performance. The following section discusses the different steps we took to prepare the data in a manner we deemed suitable and easier for the model to use.The collected data underwent a series of cleaning and formatting steps to ensure its suitability for training the model. The same formatting was applied to the test data before being fed into the model to make predictions. The following is a summary of the preprocessing steps applied to the data in order:
+
+\begin{table}[!ht]
+    \centering
+        \begin{tabular}{|p{0.2\linewidth}|p{0.73\linewidth}|}
+            \hline
+            Type of Processing & Description \\
+            \hline
+            Removing NaN, NULL value rows &  Rows with no data in the "sentiment text” column were deleted from the dataset as they were not useful for training.\\
+            \hline
+            Removing columns & Remove all columns that added no sentiment value for analysis. \\
+            \hline
+            Normalization to lowercase & All "sentiment text” in the data was converted to lowercase to ensure consistency and eliminate case sensitivity. \\
+            \hline
+            Removing punctuation & Removed from the text to improve efficiency during tokenization, as well as make tokenization easier. \\
+            \hline
+            Removing mentions (@) \& URLs & Removed as they did not offer valuable information for sentiment classification. \\
+            \hline
+            Removing hashtags & The "\textbf{\#}” symbol of hashtags was removed, retaining the meaningful tag. \\
+            \hline
+            Removing emojis & All emojis were removed using both the emoji library and regular expressions. Emojis can be used to determine sentiments; however it is an extremely difficult challenge and not all tweets contained emojis. \\
+            \hline
+            Removing STOP words & Non-informative words were removed to optimize sequence storage. Some important words that we thought conveyed sentimental information such as \textit{not} and \textit{weren’t} with negative connotation were kept. \\
+            \hline
+            Tokenization & Converted tweets to tokens to feed the NLP model. Helps with feature extraction, text segmentation, and vocabulary building. \\
+            \hline
+            Lemmatization (over stemming) & Converts all words to base form depending on context. Normalization of words improves text analysis and reducing features. \\
+            \hline
+            Standardizing labels/classes & Removed rows with \textit{irrelevant} label as did not prove benefitial for training and second data set did not include this class \\
+            \hline
+            Labels to integers & Conversion of labels to integer representations. Mapped \textit{negative} $\rightarrow$ \textit{0}, \textit{neutral} $\rightarrow$ \textit{1}, \textit{positive} $\rightarrow$ \textit{2}.\\
+            \hline
+        \end{tabular}
+\end{table}
+\vspace{-1em}
+\subsection{Data Statistics}
+\vspace{-1em}
+The statistics (entries) comparing pre- and post-processing: 74682 $\rightarrow$ 59526 training entries, 1000 $\rightarrow$ 827 validation entries, 4 $\rightarrow$ 3 sentiments (see \ref{fig:stats1}, \ref{fig:stats2}).
+
+\begin{figure}[!ht]
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[scale = 0.28]{Figs/Train_pre.png}
+        \caption{Number of Entries in Each Class Pre-Processing.}
+        \label{fig:stats1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[scale = 0.28]{Figs/Train_post.png}
+        \caption{Number of Entries in Each Class Post-Processing.}
+        \label{fig:stats2}
+    \end{subfigure}
+    \hfill
+\end{figure}
+
+\vspace{-1em}
+\subsection{Preparing Processed Data for Model Input}
+\vspace{-1em}
+Following data cleaning, the data was prepared for model input using functions from \texttt{torchtext.utils.data} and \texttt{torch.nn.utils.rnn}. The tokened tweets were used to build a vocabulary based on frequency of words which was then used to convert the strings to a list of integers indices. This proves to be vital for memory efficiency, maintaining fixed-length-inputs, (mini) batch processing, GPU acceleration, ease of transformation into tensors, and compatibility of with the model. The tokened sequences of indices were then padded using \texttt{pad\_sequence} to the maximum length of a tweet to ensure uniform length for efficient training. The length of each individual sequence before padding was also calculated and stored in a variable to avoid the caveat of 'last output unit' during batch processing as discussed in tutorial. Finally the labels were converted to a tensor. Now, the three requirements for our input data were matched and ready for data loading. \texttt{TensorDatasets} functionlaity was used to prepare a data set containing the tensor versions of the padded sequences, the length of each sequence before padding, and the truth labels. \texttt{DataLoader} was then used to load the data set into a loader while batching with \texttt{drop\_last} being true. The last few entries were dropped to ensure that every batch was uniform. The data is now ready to be used by the model.

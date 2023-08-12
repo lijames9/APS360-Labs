@@ -1,0 +1,85 @@
+\section{Model Architecture: Tweet Sentiment Analysis using CNNs}
+
+\subsection{Model Architecture}
+\vspace{-1em}
+Our primary goal was to develop a CNN model capable of accurately classifying tweet sentiments into predefined categories. After experimenting with various architectures, including LSTM and GRU, and a bidirectional LSTM and a GRU, we determined that the CNN architecture provided the best performance. Notably, our selected CNN model achieved outstanding results, boasting a training/validation accuracy of 97.6\%. Impressively, it also attained a 50\% accuracy on previously unseen data from a distinct Dell tweets dataset.
+\vspace{-1em}
+\subsection{CNN Model Class}
+\vspace{-1em}
+To implement the sentiment analysis model, we introduced a custom CNN Model class, inheriting from the \texttt{nn.Module} framework. The architecture consists of the following key components:
+
+\begin{table}[!ht]
+    \centering
+        \begin{tabular}{|p{0.13\linewidth}|p{0.83\linewidth}|}
+            \hline
+            Component & Description \\
+            \hline
+            Embedding Layer &  The model starts with an embedding layer that maps input tokens (words) to dense vector representations of \texttt{embedding\_dim} dimensions.\\
+            \hline
+            Convolutional Layers & Two consecutive convolutional layers, \texttt{conv1} and \texttt{conv2}, are applied. \texttt{conv1} employs a kernel size of 3, producing 128 output channels. Subsequently, \texttt{conv2} reduces the channels to 64 using the same kernel size. ReLU activation functions follow each convolutional layer. \\
+            \hline
+            Max-Pooling Layers &  We employ max pooling with a kernel size of 3 to downsample feature maps, thereby reducing their spatial dimensions. \\
+            \hline
+            Fully Connected Layers & Our architecture includes two fully connected layers, \texttt{fc1} and \texttt{fc2}. Following convolution and pooling, \texttt{fc1} reduces flattened feature maps to 128 dimensions, while \texttt{fc2} generates the final output logits with \texttt{num\_classes} dimensions. \\
+            \hline
+            Dropout & To mitigate overfitting, dropout is applied after \texttt{fc1} with a dropout rate of \texttt{dropout\_percent}. \\
+            \hline
+        \end{tabular}
+\end{table}
+
+%\begin{enumerate}
+   % \item \textbf{Embedding Layer:} The model starts with an embedding layer that maps input tokens (words) to dense vector representations of \texttt{embedding\_dim} dimensions.
+   % \item \textbf{Convolutional Layers:} Two consecutive convolutional layers, \texttt{conv1} and \texttt{conv2}, are applied. \texttt{conv1} employs a kernel size of 3, producing 128 output channels. Subsequently, \texttt{conv2} reduces the channels to 64 using the same kernel size. ReLU activation functions follow each convolutional layer.
+   % \item \textbf{Max Pooling Layers:} We employ max pooling with a kernel size of 3 to downsample feature maps, thereby reducing their spatial dimensions.
+    %\item \textbf{Fully Connected Layers:} Our architecture includes two fully connected layers, \texttt{fc1} and \texttt{fc2}. Following convolution and pooling, \texttt{fc1} reduces flattened feature maps to 128 dimensions, while \texttt{fc2} generates the final output logits with \texttt{num\_classes} dimensions.
+   % \item \textbf{Dropout:} To mitigate overfitting, dropout is applied after \texttt{fc1} with a dropout rate of \texttt{dropout\_percent}.
+%\end{enumerate}
+\vspace{-1em}
+\subsection{Forward Pass}
+\vspace{-1em}
+In the \texttt{forward} method, input data undergoes the following steps:
+
+\begin{table}[!ht]
+    \centering
+        \begin{tabular}{|p{0.15\linewidth}|p{0.83\linewidth}|}
+            \hline
+            Step & Description \\
+            \hline
+            Embedding & Input tokens traverse the embedding layer, yielding dense vector representations.\\
+            \hline
+            Permutation & We permute the dimensions of the embedding output to prepare for convolutional operations. \\
+            \hline
+            Convolution and Pooling &  The data undergoes convolution using the \texttt{conv1} layer, followed by max pooling. This process is repeated with \texttt{conv2} and an additional max pooling layer. \\
+            \hline
+            Flattening & Pooled feature maps are flattened into a vector. \\
+            \hline
+            Fully Connected Layers &  The flattened features progress through \texttt{fc1} and \texttt{fc2}, culminating in the final output logits.\\
+            \hline
+            Dropout and Output & The output of \texttt{fc1} is subjected to dropout, ultimately yielding sentiment logits via \texttt{fc2}.\\
+            \hline
+        \end{tabular}
+\end{table}
+
+%\begin{enumerate}
+    %\item \textbf{Embedding:} Input tokens traverse the embedding layer, yielding dense vector representations.
+    %\item \textbf{Permutation:} We permute the dimensions of the embedding output to prepare for convolutional operations.
+    %\item \textbf{Convolution and Pooling:} The data undergoes convolution using the \texttt{conv1} layer, followed by max pooling. This process is repeated with \texttt{conv2} and an additional max pooling layer.
+    %\item \textbf{Flattening:} Pooled feature maps are flattened into a vector.
+    %\item \textbf{Fully Connected Layers:} The flattened features progress through \texttt{fc1} and \texttt{fc2}, culminating in the final output logits.
+    %\item \textbf{Dropout and Output:} The output of \texttt{fc1} is subjected to dropout, ultimately yielding sentiment logits via \texttt{fc2}.
+%\end{enumerate}
+\vspace{-1em}
+\subsection{Hyperparameter Optimization}
+\vspace{-1em}
+Our pursuit of optimal model performance involved meticulous hyperparameter tuning using the \texttt{hyperopt} library. We defined a parameter search space encompassing learning rates, dropout rates, optimizer choices, and epochs, enabling efficient exploration of diverse configurations.
+
+\textbf{Objective Function:} The objective function was designed to optimize the negative accuracy. We recorded the top 10 configurations based on accuracy for further analysis.
+
+\textbf{Top Hyperparameters:} After rigorous optimization, we identified the following optimal hyperparameters: \{\texttt{learning rate: 0.001; dropout: 0.2; optimizer: Adam; epochs: 10}\}
+
+%\begin{itemize}
+ %   \item Learning Rate: 0.001
+  % \item Dropout Rate: 0.2
+   % \item Optimizer: Adam
+   % \item Epochs: 10
+%\end{itemize}

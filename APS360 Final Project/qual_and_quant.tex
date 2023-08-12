@@ -1,0 +1,44 @@
+\section{Quantitative and Qualitative Results}
+
+
+\subsection{Quantitative Results}
+\vspace{-1em}
+The quantitative results of our model building were determined through a training and validation process involving the larger dataset, with 828 data entries being split off to form a validation set and the remaining 61692 entries comprising the training set. Despite a large difference in size between the two datasets, an even split between all three sentiment classes, which would ensure that the model will learn properly instead of making random guesses or “learning” to just predict the most common class, as previous primary models were doing. In the training loop, each epoch, the model would first zero out all the gradients, performs a forward pass using each batch of inputs, calculates loss using the CrossEntropyLoss function, calculates gradients, and then updates weights and biases. 
+ 
+After the training loop, validation would be conducted by performing a forward pass with our validation dataloader, including calculating accuracy and loss, but without updating weights and biases after. The main quantitative results are the accuracy and loss for both training and validation, with a step at each epoch to evaluate how they change over training. As shown below, training and validation results both reached 96 percent accuracy while achieving a very small loss. Our highest achieved validation accuracy was about 97.6%
+\vspace{-0.5em}
+\subsection{Qualitative Results}
+\vspace{-1em}
+
+In terms of qualitative analysis, it would be useful to see how accuracy and loss changed with each epoch. To get a good sense of this, graphs (see \ref{fig:acc}, \ref{fig:loss}) were created using the outputs of the training loop to visualize the process. Confusion matrices were used to evaluate how the model would perform on different ground truth labels. To understand where it was going wrong, it was important to figure out how many guesses it was making for each possibility. The results of generating the confusion matrix are shown below (see \ref{fig:cm}). As the data shows, based on the training and validation sets, the model performed very well on all 3 classes of data, with only a few misclassifications. Also, the matrix shows that the model is not making the same mistake repeatedly, but just making an error every so often. The graphs show that even from the first epoch, the model was performing well above a random guess or a repeated prediction in terms of accuracy. Regarding loss, training loss can be seen to be extremely low due to the very large sample size. Validation loss appears to increase in later epochs, which may suggest overfitting, but it still remains quite low. 
+
+\begin{figure}[!ht]
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.47]{Figs/Acc.png}
+        \caption{Accuracy Graph.}
+        \label{fig:acc}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[scale = 0.47]{Figs/Loss.png}
+        \caption{Loss Graph.}
+        \label{fig:loss}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[scale = 0.42]{Figs/Matrix.png}
+        \caption{Confusion Matrix.}
+        \label{fig:cm}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[scale = 0.45]{Figs/outputs.png}
+        \caption{Outputs of one training attempt.}
+        \label{fig:output}
+    \end{subfigure}
+    \hfill
+\end{figure}

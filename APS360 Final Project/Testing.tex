@@ -1,0 +1,41 @@
+\section{Evaluating Model on New Data: Dell Tweet Data}
+
+\subsection{Data Source and Preprocessing Consistency}
+\vspace{-1em}
+We meticulously ensured the integrity of our model evaluation by procuring a distinct dataset of tweets exclusively targeting Dell. To guarantee an unbiased assessment, we confirmed that this dataset was entirely absent from our training and validation data. Moreover, we maintained the same preprocessing pipeline, which included \textbf{identical tokenization and padding techniques}, as employed during the training phase.
+\vspace{-1em}
+\subsection{Dedicated Evaluation Function}
+\vspace{-1em}
+In order to execute a comprehensive evaluation of our model on the Dell-specific dataset, we devised a specialized function called \texttt{predict\_and\_evaluate\_sentiment}. This function was meticulously designed to isolate the evaluation process, thus preventing any inadvertent influence from hyperparameter tuning or prior training. By channeling our focus solely on the evaluation, we adhered to best practices in avoiding data leakage and maintaining robustness.
+\vspace{-1em}
+\subsection{Model Evaluation and Performance}
+\vspace{-1em}
+Our primary objective was to gauge the model's generalization capability on the Dell-specific dataset. This involved employing the specialized \texttt{predict\_and\_evaluate\_sentiment} function, which generated a \textbf{confusion matrix}. This matrix succinctly encapsulates the model's predictive performance across the sentiment categories, showcasing areas of strength and areas that required improvement.
+\vspace{-1em}
+\subsection{Results and Reliability}
+\vspace{-1em}
+Upon conducting the evaluation, the obtained results are as follows:
+
+\begin{align*}
+    \centering
+    \text{Confusion Matrix:}
+    \begin{bmatrix}
+        6484 & 2825 & 1247 \\
+        2456 & 2682 & 1910 \\
+        1349 & 2817 & 3200 \\
+    \end{bmatrix}
+    &\qquad\qquad
+        \begin{aligned}
+            \text{Accuracy - Negative:} \ 61.42\% \\
+            \text{Accuracy - Neutral:} \ 38.05\% \\
+            \text{Accuracy - Positive:} \ 43.44\% \\
+            \text{Overall Accuracy:} \ 49.52\%
+        \end{aligned}\\
+        \vcenter{\hbox{\begin{minipage}{7cm}
+        \end{minipage}}}
+    & \notag
+\end{align*}
+\vspace{-2em}
+\subsection{Ensuring Model Integrity}
+\vspace{-1em}
+The stringent measures we undertook to maintain the fidelity of the evaluation process affirm our commitment to assessing the model's performance on unseen data. By utilizing a separate dataset, consistent preprocessing, and a dedicated evaluation function, we confidently present a \textbf{credible representation of the model’s performance on new data}, as outlined in the evaluation criteria.
